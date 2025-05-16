@@ -1,0 +1,14 @@
+# Node
+node_modules/
+.env
+.DS_Store
+*.log
+
+# OS/에디터
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# 기타
+*.bak 

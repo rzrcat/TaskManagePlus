@@ -1,6 +1,10 @@
 /**
  * 태스크 생성 자동화 예시 스크립트
  * (실제 프로젝트에서는 API/DB 연동 등으로 확장)
+ *
+ * 온보딩(최초 클론/설치) 시 자동 실행 예시:
+ *   package.json의 scripts/onboard 또는 postinstall에 등록하거나,
+ *   README.md에 'node scripts/task-create-example.js' 실행 안내 추가
  */
 
 const fs = require("fs");
@@ -25,7 +29,7 @@ const task = {
   files: ["app/features/auth/screens/login.tsx"],
 };
 
-// 템플릿 파일로 저장
+// 상대경로만 사용 (현재 파일 기준)
 const output = `# Task: ${task.title}
 - 상태: ${task.status}
 - 우선순위: ${task.priority}
@@ -43,6 +47,7 @@ const output = `# Task: ${task.title}
 - 관련 파일: ${task.files.join(", ")}
 `;
 
+// templates/ 폴더에 상대경로로 저장
 fs.writeFileSync(path.join(__dirname, "../templates/task-sample.md"), output);
 
 console.log("태스크 예시 파일이 templates/task-sample.md로 생성되었습니다.");

@@ -30,4 +30,5 @@
 - **실제 난이도(Actual Complexity)**: 1~10
 - **느낀 점/회고(Review/Reflection)**:
 - **예상 vs 실제 차이**: (자동 비교)
+- **소요시간에 영향을 준 주요 원인(Delay/Boost Factors)**:
 - **AI 요약/개선점 추천**: (자동)

@@ -12,3 +12,9 @@ Thumbs.db
 
 # 기타
 *.bak 
+
+# 프로젝트 정보/태스크(배포/공유용 저장소 제외)
+persistent/
+session/
+tasks/
+

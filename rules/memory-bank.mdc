@@ -1,0 +1,39 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Memory Bank 관리 규칙
+
+> 이 문서는 memory-bank의 목적, 구조, 관리 원칙, 파일명/포맷, persistent/session 분리, 업데이트 가이드만을 다룹니다.
+> 프로젝트 특화 정보(목적, 회고, 결정, 이슈 등)는 반드시 TaskManagerPlus/memory-bank/persistent/에서만 관리합니다.
+> 공용 컨벤션(구조/패턴/설계/폴더/네이밍 등)은 core.mdc, 품질 관리/QA/테스트/자동화/체크리스트 등은 quality.mdc, 태스크 관리/운영/자동화/템플릿 등은 TaskManagerPlus/README.md에서 관리합니다.
+
+---
+
+## 목적
+- 세션 간 맥락 유지, 프로젝트 지식/회고/진행 로그의 체계적 기록
+- TaskManagerPlus와 memory-bank가 통합되어, 실제 프로젝트 특화 정보(목적, 회고, 결정, 이슈 등)는 반드시 TaskManagerPlus/memory-bank/persistent/에서만 관리
+
+## 구조
+- memory-bank는 반드시 TaskManagerPlus 하위에만 위치해야 하며, 루트(memory-bank/)에는 별도 폴더를 두지 않습니다.
+- 모든 파일은 Markdown 형식, 00~05 등 번호로 정렬
+- 핵심 파일: 00-project-overview.md, 01-architecture.md, 02-components.md, 03-development-process.md, 04-api-documentation.md, 05-progress-log.md
+- persistent/: 장기 보존 프로젝트 지식, 아키텍처, 규칙, 주요 결정 등
+- session/: 단기 작업 맥락, 임시 dev-log, 회의록, 실험 기록 등
+
+## 관리 원칙
+- 모든 작업 시작 시 persistent/ 전체를 우선 읽고, session/은 현재 맥락 파악용으로만 활용
+- 새로운 정보/결정/회고가 나오면 즉시 해당 파일에 기록
+- 파일별 목적/포맷을 지키고, 필요시 확장/분할 가능
+- 템플릿/운영 가이드/공유용 저장소에는 memory-bank/와 tasks/ 폴더가 포함되지 않도록 .gitignore로 관리
+- 파일 추가/수정 시, 변경 이력/사유를 persistent/05-progress-log.md에 기록
+
+## 업데이트 가이드
+- 파일 추가/수정 시, 변경 이력/사유를 persistent/05-progress-log.md에 기록
+- 템플릿은 templates/memory-bank-template/ 참고
+
+## 참고
+- 공용 컨벤션(구조/패턴/설계/폴더/네이밍 등): .cursor/rules/core.mdc
+- 품질 관리/QA/테스트/자동화/체크리스트 등: quality.mdc
+- 태스크 관리/운영/자동화/템플릿 등: TaskManagerPlus/README.md

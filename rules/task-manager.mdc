@@ -1,0 +1,138 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# TaskManagerPlus 태스크매니저 운영/구조/정책 규칙
+
+> 이 문서는 TaskManagerPlus의 태스크 관리, 운영, 자동화, 템플릿 사용법 및 구조/정책을 모두 다룹니다.
+> 프로젝트 특화 정보/회고/진행 로그/주요 결정 등은 memory-bank/persistent/에서,
+> 공용 컨벤션(구조/패턴/설계/폴더/네이밍 등)은 core.mdc에서,
+> 품질 관리/QA/테스트/자동화/체크리스트 등은 quality.mdc에서 관리합니다.
+
+---
+
+## 폴더/파일 구조
+
+- 모든 태스크는 `tasks/` 하위 분류 폴더(예: feature, bugfix 등)에 개별 파일(`task-*.md`)로 생성/관리 (최상위 직접 생성 금지, 템플릿은 `TaskManagerPlus/templates/` 폴더에서 복사)
+- 실제 태스크/프로젝트 정보는 배포/공유용 저장소에 포함하지 않음 (`.gitignore`로 자동 제외, 필요시 주석 처리로 관리 방식 변경)
+- 프로젝트 특화 정보(목적, 회고, 결정, 이슈 등)는 반드시 `TaskManagerPlus/memory-bank/persistent/` 하위에서만 관리해야 함 (예: overview → `TaskManagerPlus/memory-bank/persistent/00-project-overview.md`)
+- 임시/세션별 작업 내역, 단기 기록 등은 `memory-bank/session/` 하위에서 관리
+- 공용 컨벤션/패턴/구조 등은 `core.mdc`에서만 관리 (코드/운영/품질/자동화 등 모든 규칙은 core.mdc 참고)
+
+---
+
+## 폴더/파일 구조 및 관리 규칙
+
+- 모든 태스크는 `TaskManagerPlus/tasks/` 폴더 하위 분류 폴더(기능별, 유형별 등)에 개별 파일(`task-*.md`)로 생성/관리
+- 최상위에 직접 생성 금지, 반드시 하위 폴더에 분류하여 생성
+- 템플릿은 `templates/` 폴더에 위치하며, 신규 태스크 생성 시 복사해 사용
+- 태스크 파일명은 주요 기능/주제/날짜 등으로 구분해 작성
+- 태스크 상태/진행/회고/피드백 등은 각 태스크 파일 내에서 관리
+- .DS_Store 등 불필요 파일, src/ 등 불필요 폴더는 삭제 권장
+- 실제 서비스 개발 시 Feature-Sliced Design, 도메인/계층화 구조를 권장 (자세한 예시는 core.mdc 참고)
+
+### 추천 분류 기준(폴더)
+- feature/: 신규 기능, 서비스 확장, UI/UX 개선 등
+- bugfix/: 버그 수정, 오류 대응 등
+- docs/: 문서화, 가이드, 온보딩 등
+- deploy/: 배포, CI/CD, 환경설정 등
+- refactor/: 리팩토링, 테스트, 성능 개선 등
+- misc/: 운영, 회고, 기타
+
+#### 예시 구조
+```
+tasks/
+  feature/
+    task-회원가입.md
+    task-커뮤니티-CRUD.md
+  bugfix/
+    task-검색-버그.md
+  docs/
+    task-온보딩-가이드.md
+  deploy/
+    task-CICD-배포.md
+  refactor/
+    task-코드-정리.md
+  misc/
+    task-운영-이슈.md
+```
+
+---
+
+## 실제 태스크 파일 관리 정책
+
+- 이 템플릿(TaskManagerPlus)은 배포/공유/운영 가이드 목적의 저장소임
+- 배포자는 개인 작업/실제 태스크를 포함하지 않음
+- 사용자는 온보딩 과정에서 실제 태스크 파일(tasks/task-*.md 등)을 자신의 프로젝트 저장소에 업로드/관리할지 직접 선택할 수 있음
+- 기본적으로 .gitignore에 `tasks/task-*.md`가 포함되어 있어, 템플릿 배포 시 실제 태스크 파일은 업로드되지 않음
+- 실제 프로젝트에서 태스크 파일을 버전 관리하려면, 온보딩 안내에 따라 .gitignore에서 해당 라인을 주석 처리/삭제하면 됨
+- 언제든 운영 중에도 .gitignore 설정을 변경해 태스크 파일 관리 방식을 자유롭게 바꿀 수 있음
+
+---
+
+## 태스크 파일 네이밍 규칙
+
+- 온보딩 시 아래 두 가지 파일명 규칙 중 하나를 선택할 수 있음
+  1. 주제명만 (예: task-로그인.md)
+  2. 우선순위+주제명 (예: task-1-로그인.md)
+- 선택 후, 모든 신규 태스크는 해당 규칙을 따름. 운영 중에도 언제든 변경 가능
+
+---
+
+## 태스크 생성/관리 규칙
+
+- 모든 태스크는 `TaskManagerPlus/tasks/` 폴더에 개별 파일(`task-*.md`)로 생성/관리
+- 템플릿은 `TaskManagerPlus/templates/` 폴더에 위치하며, 신규 태스크 생성 시 복사해 사용
+- 태스크 상태/진행/회고/피드백 등은 각 태스크 파일 내에서 관리
+- 모든 날짜/시간 기록은 기본적으로 사용자의 시스템/위치 기반 온라인 기준 시각도 허용 (협업 시 일관성 유지 권장)
+
+---
+
+## 태스크 생성 방법
+
+1. `templates/` 폴더에서 `task-template.md` 파일을 복사
+2. `tasks/` 폴더에 선택한 파일명 규칙에 따라 파일명을 지정해 붙여넣음
+3. 태스크 제목, 설명, 우선순위, 상태, 담당자, 생성일 등 주요 항목을 작성
+4. 진행 로그(History), 회고/피드백(Feedback) 등은 태스크 진행에 따라 파일 내에 추가 기록
+
+---
+
+## 태스크 기록 항목 커스터마이징 안내
+
+- 태스크에 기록해야 할 내용(항목, 형식 등)은 사용자가 자유롭게 커스터마이즈할 수 있음
+- 기본 제공 항목과 구조는 `TaskManagerPlus/templates/task-template.md` 파일을 기준으로 함
+- 필요에 따라 항목을 추가/삭제/수정하여 프로젝트에 맞게 활용
+
+---
+
+## 코드 품질 점검 및 일관성 관리 플로우
+
+- 개발 시작: 린트/포맷팅, 네이밍, 테스트/문서화 등 품질 기준 확인
+- 중간: 복잡도 높은 코드(10+ 복잡도, 100줄 이상 등) 작성 후 즉시 점검 및 보완
+- 종료: 린트/테스트/정적분석/복잡도/문서화 등 모든 품질 기준 점검 및 미달 항목 보완
+- 회고/피드백은 TaskManagerPlus/memory-bank/persistent/05-progress-log.md 등에도 기록
+
+---
+
+## 자동화/스크립트 예시
+
+- 태스크 파일명 일괄 변경, 자동 분류, 회고/진행 로그 자동화 등은 scripts/ 폴더에 예시 제공
+- 예시(Bash):
+```bash
+# 우선순위가 태스크 파일 내에 "- 우선순위: N" 형식으로 있을 때
+cd tasks
+for file in task-*.md; do
+  prio=$(grep "- 우선순위:" "$file" | awk '{print $3}')
+  base=$(echo "$file" | sed 's/^task-//;s/\.md$//')
+  mv "$file" "task-$prio-$base.md"
+done
+```
+
+---
+
+## 메모리뱅크(Memory Bank) 연동
+
+- 태스크 회고/피드백, 주요 결정, 학습 내용 등은 TaskManagerPlus/memory-bank/persistent/05-progress-log.md에 요약/참조/복사하여 타임라인 형태로 기록
+- 필요시 태스크 파일에서 memory-bank의 관련 문서(아키텍처, 컴포넌트, API 등)로 직접 링크/참조
+- 메모리뱅크(Memory Bank)는 반드시 TaskManagerPlus 하위에만 위치해야 하며, 루트(memory-bank/)에는 별도 폴더를 두지 않음
